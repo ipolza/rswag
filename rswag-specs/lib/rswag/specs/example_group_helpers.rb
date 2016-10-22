@@ -47,8 +47,8 @@ module Rswag
         end
       end
 
-      def response(code, description, &block)
-        api_metadata = { response: { code: code, description: description } }
+      def response(code, description, options = {}, &block)
+        api_metadata = { response: options.merge( code: code, description: description ) }
         context(description, api_metadata, &block)
       end
 
