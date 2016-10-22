@@ -48,6 +48,19 @@ module Rswag
           end
         end
 
+        context "optional 'query' parameter of type 'nil'" do
+          before do
+            api_metadata[:operation][:parameters] << { name: 'q1', in: :query, type: 'string' }
+            api_metadata[:operation][:parameters] << { name: 'q2', in: :query, type: 'string' }
+            allow(example).to receive(:q1).and_return(nil)
+            allow(example).to receive(:q2).and_return('bar')
+          end
+
+          it "appends only present query string using metadata and example values" do
+            expect(path).to eq('/blogs/1/comments/2?q2=bar')
+          end
+        end
+
         context "'query' parameter of type 'array'" do
           before do
             api_metadata[:operation][:parameters] << {
