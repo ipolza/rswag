@@ -21,7 +21,7 @@ module Rswag
       def build_query_string(example)
         query_string = parameters_in(:query)
           .map { |p| build_query_string_part(p, example.send(p[:name])) }
-          .join('&')
+          .compact.join('&')
 
         query_string = query_string.empty? ? '' : "?#{query_string}"
         URI.encode(query_string)
@@ -78,6 +78,7 @@ module Rswag
       end
 
       def build_query_string_part(param, value)
+        return if value.nil?
         return "#{param[:name]}=#{value.to_s}" unless param[:type].to_sym == :array
 
         name = param[:name]
