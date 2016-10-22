@@ -23,7 +23,8 @@ module Rswag
           .map { |p| build_query_string_part(p, example.send(p[:name])) }
           .join('&')
 
-        query_string.empty? ? '' : "?#{query_string}"
+        query_string = query_string.empty? ? '' : "?#{query_string}"
+        URI.encode(query_string)
       end
 
       def build_body(example)
