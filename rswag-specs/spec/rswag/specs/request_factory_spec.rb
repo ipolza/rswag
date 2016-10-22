@@ -69,21 +69,21 @@ module Rswag
           context 'collectionFormat = ssv' do
             let(:collectionFormat) { :ssv }
             it "formats as space separated values" do
-              expect(path).to eq('/blogs/1/comments/2?things=foo bar')
+              expect(path).to eq('/blogs/1/comments/2?things=foo%20bar')
             end
           end
 
           context 'collectionFormat = tsv' do
             let(:collectionFormat) { :tsv }
             it "formats as tab separated values" do
-              expect(path).to eq('/blogs/1/comments/2?things=foo\tbar')
+              expect(path).to eq('/blogs/1/comments/2?things=foo%5Ctbar')
             end
           end
 
           context 'collectionFormat = pipes' do
             let(:collectionFormat) { :pipes }
             it "formats as pipe separated values" do
-              expect(path).to eq('/blogs/1/comments/2?things=foo|bar')
+              expect(path).to eq('/blogs/1/comments/2?things=foo%7Cbar')
             end
           end
 
