@@ -33,7 +33,8 @@ module Rswag
       end
 
       def build_headers(example)
-        headers = Hash[ parameters_in(:header).map { |p| [ p[:name], example.send(p[:name]).to_s ] } ]
+        applicable_headers = parameters_in(:header).select{ |p| example.send(p[:name]) }
+        headers = Hash[ applicable_headers.map { |p| [ p[:name], example.send(p[:name]).to_s ] } ]
         headers.tap do |h|
           produces = @api_metadata[:operation][:produces] || @global_metadata[:produces]
           consumes = @api_metadata[:operation][:consumes] || @global_metadata[:consumes]
