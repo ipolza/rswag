@@ -195,6 +195,17 @@ module Rswag
           end
         end
 
+        context "optional 'header' parameter of type 'nil'" do
+          before do
+            api_metadata[:operation][:parameters] << { name: 'If-None-Match', in: :header, type: 'string' }
+            allow(example).to receive(:'If-None-Match').and_return(nil)
+          end
+
+          it "return only present headers using metadata and example values" do
+            expect(headers).to eq({})
+          end
+        end
+
         context "'header' params" do
           before do
             api_metadata[:operation][:parameters] << { name: 'Api-Key', in: :header, type: 'string' }
